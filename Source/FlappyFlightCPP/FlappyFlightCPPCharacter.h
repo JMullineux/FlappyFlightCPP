@@ -11,13 +11,16 @@ class AFlappyFlightCPPCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-	/** Camera boom positioning the camera behind the character */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class USpringArmComponent* CameraBoom;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class USphereComponent* SphereCollision;
+
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	//class USkeletalMeshComponent* SkeletalMesh;
 
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
+
 public:
 	AFlappyFlightCPPCharacter();
 
@@ -28,6 +31,29 @@ public:
 	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
+
+
+
+
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Velocity)
+	float ZVelocity;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Velocity)
+	float XVelocity;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Velocity)
+	float YVelocity;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Velocity)
+	bool isDead;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Velocity)
+	bool isLanded;
+
+	UPROPERTY()
+
+
 
 protected:
 
@@ -57,6 +83,29 @@ protected:
 
 	/** Handler for when a touch input stops. */
 	void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
+
+public:
+
+	UFUNCTION(BlueprintCallable)
+		void GetVelocityValues();
+
+	UFUNCTION(BlueprintCallable)
+		void CheckMaxVelocity();
+
+	UFUNCTION(BlueprintCallable)
+		void CheckMinVelocity();
+
+	UFUNCTION(BlueprintCallable)
+		void SetRotationOfCrow();
+
+	UFUNCTION(BlueprintCallable)
+		void CheckMaxHeight();
+
+	UFUNCTION(BlueprintCallable)
+		void Fly();
+
+	UFUNCTION(BlueprintCallable)
+		void Death();
 
 protected:
 	// APawn interface
